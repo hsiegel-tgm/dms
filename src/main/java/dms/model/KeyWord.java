@@ -17,7 +17,7 @@ import javax.persistence.NamedQuery;
 	@NamedQuery(name="getKeyWord",query="FROM KeyWord k"),
 })
 @Entity
-public class KeyWord implements Serializable {
+public class KeyWord implements Serializable, Comparable {
 	@Id 
 	@GeneratedValue
 	private int ID;
@@ -41,5 +41,11 @@ public class KeyWord implements Serializable {
 	public int getID() {
 		return ID;
 	}
+
+    @Override
+    public int compareTo(Object o) {
+        if(KeyWord.class != o.getClass()) return 0;
+        return name.compareTo(((KeyWord) o).getName());
+    }
 	
 }

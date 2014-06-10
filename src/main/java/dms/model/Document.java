@@ -1,12 +1,9 @@
 package dms.model;
 
-import dms.model.User;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,137 +15,156 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-
 /**
  * @Author Hannah Siegel
  * @version 2014-06-09
  *
-**/
+ *
+ */
 @NamedQueries({
-	@NamedQuery(name="getDocuments",query="FROM Document d"),
+    @NamedQuery(name="getDocuments", query = "FROM Document d"),
+    @NamedQuery(name="getManagedDocuments", query = "FROM Document d where d.admin = :id"),
+    @NamedQuery(name="SearchAuthor",query="FROM Document d WHERE d.admin = :id"), //session.getUser ansprechen!
+    @NamedQuery(name="SearchDocumentType",query="FROM Document d WHERE d.documentType = :id"), //pdf docx ... ansprechen!
+//    @NamedQuery(name="SearchDocumentName",query="FROM Document d WHERE d.name LIKE %:id%"), // documentenname.toLowerCase ... ansprechen!
+    @NamedQuery(name="SearchDocumentUser",query="FROM Document d WHERE :id IN d.users"),//session.getUser ansprechen!
 })
 @Entity
 public class Document implements Serializable {
-	@Id 
-	@GeneratedValue
-	private int ID;
 
-	private String name;
+    @Id
+    @GeneratedValue
+    private int ID;
 
-	@Column(unique=true)
-	private String path;
+    private String name;
+    
+    private String description;
 
-	private int version;
-	
-	private String documentType;
-	
-	private Date lastModified;
-	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private User occupant;
-	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private User admin;	
-	
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	private Set<KeyWord> keyWords = new HashSet<KeyWord>();
-	
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	private Set<Category> categories = new HashSet<Category>();
-	
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	private Set<User> users = new HashSet<User>();
-	
-	public Document(String name, String documentType, int version, String path){
-			this.name = name;
-			this.documentType = documentType;
-			this.version = version;
-			this.path = path;
-	}
+    @Column(unique = true)
+    private String path;
 
-	public Document(){}
+    private int version;
 
-	public String getName() {
-		return name;
-	}
+    private String documentType;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private Date lastModified;
 
-	public String getPath() {
-		return path;
-	}
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private User occupant;
 
-	public void setPath(String path) {
-		this.path = path;
-	}
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private User admin;
 
-	public int getVersion() {
-		return version;
-	}
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<KeyWord> keyWords = new HashSet<KeyWord>();
 
-	public void setVersion(int version) {
-		this.version = version;
-	}
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Category> categories = new HashSet<Category>();
 
-	public String getDocumentType() {
-		return documentType;
-	}
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<User> users = new HashSet<User>();
 
-	public void setDocumentType(String documentType) {
-		this.documentType = documentType;
-	}
+    public Document(String name, String description, String documentType, int version, String path, User admin) {
+        this.name = name;
+        this.description = description;
+        this.documentType = documentType;
+        this.version = version;
+        this.path = path;
+        this.admin = admin;
+    }
 
-	public Date getLastModified() {
-		return lastModified;
-	}
+    public Document() {
+    }
 
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public User getOccupant() {
-		return occupant;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setOccupant(User occupant) {
-		this.occupant = occupant;
-	}
+    public String getPath() {
+        return path;
+    }
 
-	public User getAdmin() {
-		return admin;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	public void setAdmin(User admin) {
-		this.admin = admin;
-	}
+    public int getVersion() {
+        return version;
+    }
 
-	public Set<KeyWord> getKeyWords() {
-		return keyWords;
-	}
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
-	public void setKeyWords(Set<KeyWord> keyWords) {
-		this.keyWords = keyWords;
-	}
+    public String getDocumentType() {
+        return documentType;
+    }
 
-	public Set<Category> getCategories() {
-		return categories;
-	}
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
 
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
-	}
+    public Date getLastModified() {
+        return lastModified;
+    }
 
-	public Set<User> getUsers() {
-		return users;
-	}
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
+    public User getOccupant() {
+        return occupant;
+    }
 
-	public int getID() {
-		return ID;
-	}
+    public void setOccupant(User occupant) {
+        this.occupant = occupant;
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+    public Set<KeyWord> getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(Set<KeyWord> keyWords) {
+        this.keyWords = keyWords;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

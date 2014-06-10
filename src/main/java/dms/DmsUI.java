@@ -43,14 +43,14 @@ public class DmsUI extends UI {
     private HashMap<String, Class<? extends View>> routes = new HashMap<String, Class<? extends View>>() {
         {
             put("", LoginView.class);
-            put("/searchdocument", SearchDocument.class);
             put("/mydocuments", MyDocuments.class);
+            put("/searchdocument", SearchDocument.class);
         }
     };
     
     private String[] destinations = new String[] {
-        "Search Document",
         "My Documents",
+        "Search Document",
     };
     
     private HashMap<String, Button> viewNameToMenuButton = new HashMap<String, Button>();
@@ -128,17 +128,13 @@ public class DmsUI extends UI {
         }
         menu.addStyleName("menu");
         menu.setHeight("100%");
-        
-        viewNameToMenuButton.get("/dashboard").setHtmlContentAllowed(true);
-        viewNameToMenuButton.get("/dashboard").setCaption(
-                "Dashboard<span class=\"badge\">17</span>");
 
         String f = Page.getCurrent().getUriFragment();
         if (f != null && f.startsWith("!")) {
             f = f.substring(1);
         }
         if (f == null || f.equals("") || f.equals("/")) {
-            nav.navigateTo("/dashboard");
+            nav.navigateTo("/mydocuments");
             menu.getComponent(0).addStyleName("selected");
 //            helpManager.showHelpFor(DashboardView.class);
         } else {

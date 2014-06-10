@@ -32,7 +32,7 @@ public class SidebarView extends VerticalLayout implements View {
         setHeight("100%");
 
         // Image
-        Resource res = new ThemeResource("img/sigmascheduler_small.png");
+        Resource res = new ThemeResource("img/small.png");
         Image image = new Image(null, res);
         addComponent(image);
 

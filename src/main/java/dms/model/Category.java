@@ -17,7 +17,7 @@ import javax.persistence.NamedQuery;
  *
 **/
 @NamedQueries({
-	@NamedQuery(name="getCategory",query="FROM Category c"),
+	@NamedQuery(name="getAllCategories",query="FROM Category c"),
 })
 @Entity
 public class Category implements Serializable {

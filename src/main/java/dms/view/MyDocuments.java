@@ -32,7 +32,7 @@ import java.util.List;
 public class MyDocuments extends HorizontalLayout implements View {
 
     private TabSheet eventSheet;
-    private HorizontalLayout events;
+    private HorizontalLayout documentPanel;
     private DmsSession session = ((DmsUI) UI.getCurrent()).getDmsSession();
 
     @Override
@@ -51,7 +51,7 @@ public class MyDocuments extends HorizontalLayout implements View {
 
         final VerticalLayout center = new VerticalLayout();
         center.setSizeFull();
-        center.setCaption("Created Events");
+        center.setCaption("Created Documents");
         eventSheet.addComponent(center);
 
         VerticalLayout titleAndDrafts = new VerticalLayout();
@@ -61,23 +61,24 @@ public class MyDocuments extends HorizontalLayout implements View {
         center.addComponent(titleAndDrafts);
         center.setComponentAlignment(titleAndDrafts, Alignment.MIDDLE_CENTER);
 
-        Label draftsTitle = new Label("My Events");
+        Label draftsTitle = new Label("My Documents");
         draftsTitle.addStyleName("h1");
         draftsTitle.setSizeUndefined();
         titleAndDrafts.addComponent(draftsTitle);
         titleAndDrafts.setComponentAlignment(draftsTitle, Alignment.TOP_CENTER);
 
-        events = new HorizontalLayout();
-        events.setSpacing(true);
-        titleAndDrafts.addComponent(events);
+        documentPanel = new HorizontalLayout();
+        documentPanel.setSpacing(true);
+        titleAndDrafts.addComponent(documentPanel);
         
         fillDocuments();
+        newDocument();
 
         return eventSheet;
     }
 
     private void fillDocuments() {
-        events.removeAllComponents();
+        documentPanel.removeAllComponents();
         List<Document> documents;
         try {
             documents = session.getDocumentManager().getManagedDocuments(session.getUser());
@@ -98,10 +99,10 @@ public class MyDocuments extends HorizontalLayout implements View {
                     ContentMode.HTML);
             draftTitle.setSizeUndefined();
             eventBox.addComponent(draftTitle);
-            events.addComponent(eventBox);
+            documentPanel.addComponent(eventBox);
             // TODO layout bug, we need to set the alignment also for the first
             // child
-            events.setComponentAlignment(eventBox, Alignment.MIDDLE_CENTER);
+            documentPanel.setComponentAlignment(eventBox, Alignment.MIDDLE_CENTER);
 
             final Button delete = new Button("×");
             delete.setPrimaryStyleName("delete-button");
@@ -117,6 +118,7 @@ public class MyDocuments extends HorizontalLayout implements View {
                                     try {
                                         session.getDocumentManager().delete(document);
                                         fillDocuments();
+                                        newDocument();
                                     } catch (DatabaseException ex) {
                                     }
                                 }
@@ -144,10 +146,12 @@ public class MyDocuments extends HorizontalLayout implements View {
                 }
             });
 //            draft.setDescription("Click to edit");
-            delete.setDescription("Delete Event");
-            events.addComponent(eventBox);
+            delete.setDescription("Delete Document");
+            documentPanel.addComponent(eventBox);
         }
-
+    }
+    
+    private void newDocument() {
         VerticalLayout createBox = new VerticalLayout();
         createBox.setWidth(null);
         createBox.addStyleName("create");
@@ -155,7 +159,7 @@ public class MyDocuments extends HorizontalLayout implements View {
         create.addStyleName("default");
         createBox.addComponent(create);
         createBox.setComponentAlignment(create, Alignment.MIDDLE_CENTER);
-        events.addComponent(createBox);
+        documentPanel.addComponent(createBox);
         create.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {

@@ -117,7 +117,7 @@ public class DataManager {
      * @return the resultlist
      * @throws SigmaSchedulerException 
      */
-    List<User> executeQuery(String queryName) throws DatabaseException {
+    List executeQuery(String queryName) throws DatabaseException {
         Session session = null;
         List fakeResult;
         List result = new ArrayList<Object>();

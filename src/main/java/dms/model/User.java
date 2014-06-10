@@ -18,12 +18,12 @@ import javax.persistence.Table;
  *
 **/
 @NamedQueries({
-	@NamedQuery(name="getUsers",query="FROM User u order by u.ID"),
+	@NamedQuery(name="getAllUsers",query="FROM User u order by u.ID"),
         @NamedQuery(name="getUser",query="FROM User u where u.username = :id"),
 })
 @Table(name="dmsuser")
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, Comparable {
 	@Id 
 	@GeneratedValue
 	private int ID;
@@ -71,4 +71,10 @@ public class User implements Serializable {
 	public int getID() {
 		return ID;
 	}
+
+    @Override
+    public int compareTo(Object o) {
+        if(User.class != o.getClass()) return 0;
+        return username.compareTo(((User) o).getUsername());
+    }
 }

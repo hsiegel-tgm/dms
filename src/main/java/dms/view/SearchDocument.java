@@ -12,7 +12,7 @@ import com.vaadin.ui.VerticalLayout;
 public class SearchDocument extends VerticalLayout implements View {
 
     public SearchDocument() {
-        Label header = new Label("Event Calendar");
+        Label header = new Label("Search Document");
         header.addStyleName("h1");
         addComponent(header);
         addStyleName("timeline");
