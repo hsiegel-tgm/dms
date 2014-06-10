@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SigmaScheduler" default="usage">
+  <!-- Declare properties -->
+  <property file="build.properties" />
+  <property name="app.name"   value="MeineWebApp" />
+  <property name="deploy.dir" value="dist" />
+  <property name="dist.dir"   value="dist" />
+  <property name="lib.dir"    value="lib" />
+  <property name="src.dir"    value="src" />
+  <property name="webapp.dir" value="webapp" />
+  <property name="WEBINF.dir" value="${webapp.dir}/WEB-INF" />
+  
+  <!-- Set path -->
+  <path id="compile.classpath">
+	<fileset dir="${lib.dir}" includes="*.jar" />
+    <fileset dir="${WEBINF.dir}/lib" />
+    <pathelement path="${WEBINF.dir}/classes" />
+  </path>
+  
+  <!-- Show usage -->
+  <target name="usage">
+    <echo message="Availiable Targets" />
+    <echo message="  clean     : Delete ${WEBINF.dir}/classes, ${dist.dir}" />
+    <echo message="  compile   : Compile from ${src.dir} to ${WEBINF.dir}/classes" />
+    <echo message="  create-war: Create ${dist.dir}/${app.name}.war" />
+    <echo message="  install-gf: Installs the GlassFish-Application-Server" />
+	<echo message="   create-db: Creates a PostgreSQL-Database" />
+  </target>
+  
+  <!-- Delete files -->
+  <target name="clean" description="Delete ${WEBINF.dir}/classes, ${dist.dir}">
+    <delete dir="${WEBINF.dir}/classes" />
+    <delete dir="${dist.dir}" />
+  </target>
+  
+  <!-- Compile files -->
+  <target name="compile" description="Compile from ${src.dir} to ${WEBINF.dir}/classes">
+    <mkdir dir="${WEBINF.dir}/lib" />
+    <mkdir dir="${WEBINF.dir}/classes" />
+    <javac srcdir="${src.dir}" destdir="${WEBINF.dir}/classes">
+      <classpath refid="compile.classpath" />
+    </javac>
+    <copy todir="${WEBINF.dir}/classes">
+      <fileset dir="${src.dir}" excludes="**/*.java" />
+    </copy>
+  </target>
+  
+  <!-- Create war-file -->
+  <target name="create-war" depends="compile"
+          description="Create ${dist.dir}/${app.name}.war">
+    <mkdir dir="${dist.dir}" />
+    <war destfile="${dist.dir}/${app.name}.war" webxml="${WEBINF.dir}/web.xml">
+      <fileset dir="${webapp.dir}" includes="**/*.*" excludes="**/web.xml, **/servlet*.jar, **/junit*.jar" />
+    </war>
+  </target>
+  
+  <!-- Deploy war-file -->
+  <target name="deploy-war" depends="create-war" description="Copy ${dist.dir}/${app.name}.war to ${deploy.dir}">
+    <copy todir="${deploy.dir}" preservelastmodified="true">
+      <fileset dir="${dist.dir}" includes="${app.name}.war" />
+    </copy>
+  </target>
+  
+  <!-- Install GlassFish-Application-Server -->
+  <target name="install-gf">
+	<configureapplicationserver>
+		<applicationserver>
+			<glassfish installdir="">
+		</applicationserver>
+	</configureapplicationserver>
+  </target>
+  
+  <!-- Create PostgreSQL-Database -->
+  <target name="create-db">
+	<database>
+		<postgresql database="sigmascheduler" server="localhost:5432" user="postgres" password="postgres" />
+	</database>
+	<driverclasspath>
+		<!-- Location of PostgreSQL-Connector (JAR-File) -->
+		<pathelement location="" />
+	</driverclasspath>
+  </target>
+</project>
