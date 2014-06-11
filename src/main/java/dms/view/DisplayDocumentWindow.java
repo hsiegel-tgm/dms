@@ -93,7 +93,7 @@ public class DisplayDocumentWindow extends Window {
         form.setMargin(true);
         form.setSpacing(true);
         
-        Label description = new Label("description");
+        Label description = new Label("Description");
         description.setStyleName("event-input");
         if(prefill) description.setValue(document.getDescription());
         form.addComponent(description);
@@ -116,7 +116,7 @@ public class DisplayDocumentWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%"); 
         
-        Button ok = new Button("Download");
+        Button ok = new Button("téléchargement");
         ok.addStyleName("wide");
         ok.addStyleName("default");
 //        ok.addClickListener(new CreateDocumentListener(this));
@@ -125,7 +125,7 @@ public class DisplayDocumentWindow extends Window {
         menu.setExpandRatio(ok, 1);
         menu.setComponentAlignment(ok, Alignment.TOP_RIGHT);
         
-        Button cancel = new Button("Cancel");
+        Button cancel = new Button("Abandoner");
         cancel.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {

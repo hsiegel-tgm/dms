@@ -57,7 +57,7 @@ public class ConfirmWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%");
         
-        Button ok = new Button("Yes");
+        Button ok = new Button("Oui");
         ok.addStyleName("wide");
         ok.addStyleName("default");
         ok.addClickListener(listener);
@@ -72,7 +72,7 @@ public class ConfirmWindow extends Window {
         menu.setExpandRatio(ok, 1);
         menu.setComponentAlignment(ok, Alignment.TOP_RIGHT);
 
-        Button cancel = new Button("No");
+        Button cancel = new Button("Non");
         cancel.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {

@@ -64,14 +64,14 @@ public class LoginView extends VerticalLayout implements View {
         fields.setMargin(true);
         fields.addStyleName("fields");
 
-        username = new TextField("nom d'utilisateur");
+        username = new TextField("Nom d'utilisateur");
         username.focus();
         fields.addComponent(username);
 
-        password = new PasswordField("mot de passe");
+        password = new PasswordField("Mot de passe");
         fields.addComponent(password);
 
-        final Button signin = new Button("fehlt noch");
+        final Button signin = new Button("Confirmer");
         signin.setId("signin");
         signin.addStyleName("default");
         signin.setClickShortcut(KeyCode.ENTER, null);
@@ -82,7 +82,7 @@ public class LoginView extends VerticalLayout implements View {
         
         loginPanel.addComponent(fields);
         
-        final Button signup = new Button("Not registerd yet?, Sign up!");
+        final Button signup = new Button("Pas encore enregistrer? Faitez-le maintenante!");
         signup.setId("signup");
         signup.setPrimaryStyleName("link");
         signup.addClickListener(new ClickListener() {

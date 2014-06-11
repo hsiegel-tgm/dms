@@ -51,7 +51,7 @@ public class MyDocuments extends HorizontalLayout implements View {
 
         final VerticalLayout center = new VerticalLayout();
         center.setSizeFull();
-        center.setCaption("Created Documents");
+        center.setCaption("Documents fait");
         eventSheet.addComponent(center);
 
         VerticalLayout titleAndDrafts = new VerticalLayout();
@@ -61,7 +61,7 @@ public class MyDocuments extends HorizontalLayout implements View {
         center.addComponent(titleAndDrafts);
         center.setComponentAlignment(titleAndDrafts, Alignment.MIDDLE_CENTER);
 
-        Label draftsTitle = new Label("My Documents");
+        Label draftsTitle = new Label("Mes documents");
         draftsTitle.addStyleName("h1");
         draftsTitle.setSizeUndefined();
         titleAndDrafts.addComponent(draftsTitle);
@@ -94,8 +94,7 @@ public class MyDocuments extends HorizontalLayout implements View {
 //            eventBox.addComponent(draft);
             Label draftTitle = new Label(
                     document.getName() + "<br />"
-                            + "<span>Last modified: " + document.getLastModified()+ "</span><br />"
-                            + "<small>Occupant: " + document.getOccupant() + "</small><br />",
+                            + "<span>version: " + document.getVersion()+ "</span><br />",
                     ContentMode.HTML);
             draftTitle.setSizeUndefined();
             eventBox.addComponent(draftTitle);
@@ -111,7 +110,7 @@ public class MyDocuments extends HorizontalLayout implements View {
                 @Override
                 public void buttonClick(ClickEvent clickEvent) {
                     UI.getCurrent().addWindow(new ConfirmWindow(
-                        "Confirm: Delete Document","Are you sure, that you want delete Document \"" + document.getName() + "\"?",
+                        "Confirmer: Effacé document","Est-ce que vous êtrez sure que vous voudrias effacé cette esti document de calisse? \"" + document.getName() + "\"?",
                             new ClickListener() {
                                 @Override
                                 public void buttonClick(ClickEvent clickEvent) {
@@ -147,7 +146,7 @@ public class MyDocuments extends HorizontalLayout implements View {
                 }
             });
 //            draft.setDescription("Click to edit");
-            delete.setDescription("Delete Document");
+            delete.setDescription("Effacer document");
             documentPanel.addComponent(eventBox);
         }
     }
@@ -156,7 +155,7 @@ public class MyDocuments extends HorizontalLayout implements View {
         VerticalLayout createBox = new VerticalLayout();
         createBox.setWidth(null);
         createBox.addStyleName("create");
-        Button create = new Button("Create New");
+        Button create = new Button("Nouveau document");
         create.addStyleName("default");
         createBox.addComponent(create);
         createBox.setComponentAlignment(create, Alignment.MIDDLE_CENTER);

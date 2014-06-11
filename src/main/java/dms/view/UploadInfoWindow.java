@@ -28,7 +28,7 @@ public class UploadInfoWindow extends Window implements
         private final FileUploader counter;
         public UploadInfoWindow(final Upload upload,
                 final FileUploader lineBreakCounter) {
-            super("Status");
+            super("État");
             this.counter = lineBreakCounter;
 
             addStyleName("upload-info");
@@ -44,7 +44,7 @@ public class UploadInfoWindow extends Window implements
             stateLayout.setSpacing(true);
             stateLayout.addComponent(state);
 
-            cancelButton = new Button("Cancel");
+            cancelButton = new Button("Abandoner");
             cancelButton.addClickListener(new Button.ClickListener() {
                 @Override
                 public void buttonClick(final ClickEvent event) {
@@ -55,16 +55,16 @@ public class UploadInfoWindow extends Window implements
             cancelButton.setStyleName("small");
             stateLayout.addComponent(cancelButton);
 
-            stateLayout.setCaption("Current state");
+            stateLayout.setCaption("Statut actuelle");
             state.setValue("Idle");
             l.addComponent(stateLayout);
 
-            fileName.setCaption("File name");
+            fileName.setCaption("Nom du document");
             l.addComponent(fileName);
 
             l.addComponent(result);
 
-            pi.setCaption("Progress");
+            pi.setCaption("Progrés");
             pi.setVisible(false);
             l.addComponent(pi);
 
@@ -96,7 +96,7 @@ public class UploadInfoWindow extends Window implements
             pi.setPollingInterval(500); // hit server frequantly to get
             textualProgress.setVisible(true);
             // updates to client
-            state.setValue("Uploading");
+            state.setValue("Télécharger");
             fileName.setValue(event.getFilename());
 
             cancelButton.setVisible(true);

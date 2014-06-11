@@ -65,27 +65,27 @@ public class RegisterView extends VerticalLayout implements View {
         fields.setMargin(true);
         fields.addStyleName("fields");
 
-        username = new TextField("Username");
+        username = new TextField("Nom d#utilisateur");
         username.focus();
         fields.addComponent(username);
         fields.setComponentAlignment(username, Alignment.MIDDLE_CENTER);
 
-        password = new PasswordField("Password");
+        password = new PasswordField("Mot de passe");
         fields.addComponent(password);
         fields.setComponentAlignment(password, Alignment.MIDDLE_CENTER);
         
-        passwordVerification = new PasswordField("Retype Password");
+        passwordVerification = new PasswordField("Répéter mot de passe");
         fields.addComponent(passwordVerification);
         fields.setComponentAlignment(passwordVerification, Alignment.MIDDLE_CENTER);
         
-        email = new TextField("Email (optional):");
+        email = new TextField("Courriel (optionale):");
         fields.addComponent(email);
         fields.setComponentAlignment(email, Alignment.MIDDLE_CENTER);
         
         HorizontalLayout nav = new HorizontalLayout();
         nav.setSpacing(true);
         
-        final Button back = new Button("Back");
+        final Button back = new Button("Retour");
         back.setId("back");
         back.addClickListener(new ClickListener() {
             @Override
@@ -95,7 +95,7 @@ public class RegisterView extends VerticalLayout implements View {
         });
         nav.addComponent(back);
 
-        final Button signin = new Button("Sign up");
+        final Button signin = new Button("Enregistrer");
         signin.setId("signin");
         signin.addStyleName("default");
         signin.setClickShortcut(KeyCode.ENTER, null);

@@ -104,7 +104,8 @@ public class DataManager {
             fakeResult = query.list();
             for(Object o : fakeResult) result.add(o);
         } catch (Exception ex) {
-            throw new DatabaseException(ex.getMessage());
+            ex.printStackTrace();
+//            throw new DatabaseException(ex.getMessage());
         } finally {
             session.close();
         }

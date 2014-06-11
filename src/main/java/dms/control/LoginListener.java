@@ -4,7 +4,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import dms.DmsUI;
 import dms.exceptions.DatabaseException;
-import dms.exceptions.InputException;
 import dms.view.LoginView;
 
 /**

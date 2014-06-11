@@ -69,7 +69,9 @@ public class EditDocumentWindow extends Window {
     private String path, documentType;
     
     public EditDocumentWindow() {
-        super("nouveaux document");
+        super("Nouveaux document");
+        
+        int i = 1;
         
         form = new FormLayout();
         userContainer = new CssLayout();
@@ -93,7 +95,7 @@ public class EditDocumentWindow extends Window {
     }
     
     public EditDocumentWindow(Document document) {
-        super("modifier document - " + document.getName());
+        super("Modifier document - " + document.getName());
         tempDocument = document;
         
         form = new FormLayout();
@@ -128,14 +130,14 @@ public class EditDocumentWindow extends Window {
         form.setMargin(true);
         form.setSpacing(true);
         
-        name = new TextField("nom du document");
+        name = new TextField("Nom du document");
         name.focus();
         name.selectAll();
         name.setStyleName("event-input");
         if(prefill) name.setValue(document.getName());
         form.addComponent(name);
         
-        description = new TextArea("description");
+        description = new TextArea("Description");
         description.setStyleName("event-input");
         if(prefill) description.setValue(document.getDescription());
         form.addComponent(description);
@@ -143,7 +145,7 @@ public class EditDocumentWindow extends Window {
         FileUploader uploader = new FileUploader(this,version);
         file = new Upload(null, uploader);
         file.setImmediate(false);
-        file.setButtonCaption("enregistre");
+        file.setButtonCaption("Enregistre");
         final UploadInfoWindow uploadInfoWindow = new UploadInfoWindow(file,uploader);
         file.addStartedListener(new StartedListener() {
             @Override
@@ -165,7 +167,7 @@ public class EditDocumentWindow extends Window {
         form.addComponent(file);
         
         //Select Category
-        categoryContainer.setCaption("catégorie");
+        categoryContainer.setCaption("Catégorie");
         categoryContainer.setWidth("480px");
         if(prefill) {
             categories.addAll(document.getCategories());
@@ -187,7 +189,7 @@ public class EditDocumentWindow extends Window {
         form.addComponent(addCategory);
         
         //Select KeyWord
-        keywordContainer.setCaption("mot de clé");
+        keywordContainer.setCaption("Mot de clé");
         keywordContainer.setWidth("480px");
         if(prefill) {
             keywords.addAll(document.getKeyWords());
@@ -209,7 +211,7 @@ public class EditDocumentWindow extends Window {
         form.addComponent(addKeyWord);
 //        
         //Select User
-        userContainer.setCaption("utilisateurs");
+        userContainer.setCaption("Utilisateurs");
         userContainer.setWidth("480px");
         if(prefill) {
             users.addAll(document.getUsers());
@@ -242,7 +244,7 @@ public class EditDocumentWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%"); 
         
-        Button ok = new Button("Save");
+        Button ok = new Button("Enregistrer");
         ok.addStyleName("wide");
         ok.addStyleName("default");
         ok.addClickListener(new CreateDocumentListener(this));
@@ -251,7 +253,7 @@ public class EditDocumentWindow extends Window {
         menu.setExpandRatio(ok, 1);
         menu.setComponentAlignment(ok, Alignment.TOP_RIGHT);
         
-        Button cancel = new Button("Cancel");
+        Button cancel = new Button("Abandoner");
         cancel.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {

@@ -6,6 +6,8 @@ import dms.model.Category;
 import dms.model.Document;
 import dms.model.KeyWord;
 import dms.model.User;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +42,7 @@ public class DocumentManager {
         d.setCategories(category);
         d.setKeyWords(keyWords);
         d.setUsers(users);
+        d.getUsers().remove(session.getUser());
         
         //Saving the new event
         dataManager.save(d);
@@ -135,5 +138,39 @@ public class DocumentManager {
 
     public List<Document> getAllDocuments() throws DatabaseException {
         return dataManager.executeQuery("getDocuments");
+    }
+
+    public Set<Document> search(String searchValue) throws DatabaseException {
+        List<Document> allResults = dataManager.executeQuery("getDocuments");
+        Set<Document> searchResults = new HashSet<Document>();
+        
+        for(Document document : allResults) {
+            //Category
+            for(Category category : document.getCategories()) {
+                if(category.getName().contains(searchValue)) {
+                    searchResults.add(document);
+                }
+            }
+            
+            //KeyWordSearch
+            for(KeyWord keyWord : document.getKeyWords()) {
+                if(keyWord.getName().contains(searchValue)) {
+                    searchResults.add(document);
+                }
+            }
+            
+            //Admin
+            if(document.getAdmin().getUsername().contains(searchValue))
+                searchResults.add(document);
+        }
+        
+        
+//        Set<Document> filteredSearchResults = new HashSet<Document>();
+//        for(Document document : searchResults) {
+//            if(document.getUsers().contains(session.getUser()) || document.getAdmin().equals(session.getUser())) 
+//                filteredSearchResults.add(document);
+//        }
+//        return filteredSearchResults;
+        return searchResults;
     }
 }

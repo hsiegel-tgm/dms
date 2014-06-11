@@ -32,7 +32,7 @@ public class SelectCategoryWindow extends Window {
     private Table table;
 
     public SelectCategoryWindow(ClickListener listener) {
-        super("Category Selection");
+        super("Selection du categorie");
         
         form = new FormLayout();
         
@@ -64,14 +64,14 @@ public class SelectCategoryWindow extends Window {
         }
         
         IndexedContainer ic = new IndexedContainer();
-        ic.addContainerProperty("Category", String.class, null);
+        ic.addContainerProperty("Categorie", String.class, null);
         for(Category category : categories) { 
             ic.addItem(category);
-            ic.getContainerProperty(category, "Category").setValue(category.getName());
+            ic.getContainerProperty(category, "Categorie").setValue(category.getName());
         }
         table.setMultiSelect(true);
         table.setContainerDataSource(ic);
-        table.setVisibleColumns("Category");
+        table.setVisibleColumns("Categorie");
         table.setSelectable(true);
         table.setImmediate(true);
         table.setHeight("400px");
@@ -87,7 +87,7 @@ public class SelectCategoryWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%");
         
-        Button ok = new Button("Add");
+        Button ok = new Button("Ajouter");
         ok.addStyleName("wide");
         ok.addStyleName("default");
         ok.addClickListener(listener);
@@ -102,7 +102,7 @@ public class SelectCategoryWindow extends Window {
         menu.setExpandRatio(ok, 1);
         menu.setComponentAlignment(ok, Alignment.TOP_RIGHT);
 
-        Button cancel = new Button("Cancel");
+        Button cancel = new Button("Abandoner");
         cancel.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {

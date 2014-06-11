@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,9 +23,11 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name="getDocuments", query = "FROM Document d"),
     @NamedQuery(name="getManagedDocuments", query = "FROM Document d where d.admin = :id"),
-    @NamedQuery(name="SearchAuthor",query="FROM Document d WHERE d.admin = :id"), //session.getUser ansprechen!
-    @NamedQuery(name="SearchDocumentType",query="FROM Document d WHERE d.documentType = :id"), //pdf docx ... ansprechen!
-//    @NamedQuery(name="SearchDocumentName",query="FROM Document d WHERE d.name LIKE %:id%"), // documentenname.toLowerCase ... ansprechen!
+    @NamedQuery(name="SearchAuthor",query="FROM Document d WHERE d.admin = :id"), //session.getUser ansprechen! Q1
+//    @NamedQuery(name="SearchCategory",query="FROM Document d WHERE :id IN d.categories"), //session.getUser ansprechen! Q2
+
+    @NamedQuery(name="SearchDocumentType",query="FROM Document d WHERE d.documentType = :id"), //pdf docx ... ansprechen! Q5
+//    @NamedQuery(name="SearchDocumentName",query="FROM Document d WHERE d.name LIKE %:id%"), // documentenname.toLowerCase ... ansprechen! 
     @NamedQuery(name="SearchDocumentUser",query="FROM Document d WHERE :id IN d.users"),//session.getUser ansprechen!
 })
 @Entity
@@ -59,7 +62,7 @@ public class Document implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Category> categories = new HashSet<Category>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<User>();
 
     public Document(String name, String description, String documentType, int version, String path, User admin) {
@@ -164,5 +167,18 @@ public class Document implements Serializable {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || o.getClass() != this.getClass()) return false;
+        return ((Document) o).getID() == ID;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + this.ID;
+        return hash;
     }
 }

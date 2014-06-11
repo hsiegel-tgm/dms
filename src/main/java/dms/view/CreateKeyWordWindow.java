@@ -23,7 +23,7 @@ public class CreateKeyWordWindow extends Window {
     private TextField textField;
 
     public CreateKeyWordWindow(ClickListener listener) {
-        super("Add KeyWord");
+        super("Ajouter mot de clé");
         
         form = new FormLayout();
         
@@ -58,7 +58,7 @@ public class CreateKeyWordWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%");
         
-        Button ok = new Button("Add");
+        Button ok = new Button("Ajouter");
         ok.addStyleName("wide");
         ok.addStyleName("default");
         ok.addClickListener(listener);
@@ -73,7 +73,7 @@ public class CreateKeyWordWindow extends Window {
         menu.setExpandRatio(ok, 1);
         menu.setComponentAlignment(ok, Alignment.TOP_RIGHT);
 
-        Button cancel = new Button("Cancel");
+        Button cancel = new Button("Abandonner");
         cancel.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {

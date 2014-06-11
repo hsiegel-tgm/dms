@@ -57,17 +57,8 @@ public class SidebarView extends VerticalLayout implements View {
                     }
 
                 };
-                MenuBar settings = new MenuBar();
-                MenuBar.MenuItem settingsMenu = settings.addItem("",
-                        null);
-                settingsMenu.setStyleName("icon-cog");
-                settingsMenu.addItem("Settings", cmd);
-                settingsMenu.addItem("Preferences", cmd);
-                settingsMenu.addSeparator();
-                settingsMenu.addItem("My Account", cmd);
-                addComponent(settings);
 
-                Button exit = new NativeButton("Exit");
+                Button exit = new NativeButton("Fermer");
                 exit.addStyleName("icon-cancel");
                 exit.setDescription("Sign Out");
                 addComponent(exit);

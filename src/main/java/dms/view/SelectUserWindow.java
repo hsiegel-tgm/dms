@@ -34,7 +34,7 @@ public class SelectUserWindow extends Window {
     private Table table;
 
     public SelectUserWindow(ClickListener listener) {
-        super("User Selection");
+        super("Selection d'utilisateur");
         
         form = new FormLayout();
         
@@ -71,14 +71,14 @@ public class SelectUserWindow extends Window {
             }
         });
         IndexedContainer ic = new IndexedContainer();
-        ic.addContainerProperty("User", String.class, null);
+        ic.addContainerProperty("Utilisateur", String.class, null);
         for(User user : users) {
             ic.addItem(user);
-            ic.getContainerProperty(user, "User").setValue(user.getUsername());
+            ic.getContainerProperty(user, "Utilisateur").setValue(user.getUsername());
         }
         table.setMultiSelect(true);
         table.setContainerDataSource(ic);
-        table.setVisibleColumns("User");
+        table.setVisibleColumns("Utilisateur");
         table.setSelectable(true);
         table.setImmediate(true);
         table.setHeight("400px");
@@ -94,7 +94,7 @@ public class SelectUserWindow extends Window {
         menu.addStyleName("footer");
         menu.setWidth("100%");
         
-        Button ok = new Button("Add");
+        Button ok = new Button("Ajouter");
         ok.addStyleName("wide");
         ok.addStyleName("default");
         ok.addClickListener(listener);
@@ -109,7 +109,7 @@ public class SelectUserWindow extends Window {
         menu.setExpandRatio(ok, 1);
         menu.setComponentAlignment(ok, Alignment.TOP_RIGHT);
 
-        Button cancel = new Button("Cancel");
+        Button cancel = new Button("Abandoner");
         cancel.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
