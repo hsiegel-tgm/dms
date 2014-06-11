@@ -36,9 +36,9 @@ public class SearchDocument extends VerticalLayout implements View {
         TextField search = new TextField("Search");
         layout.addComponent(search);
         
-        HorizontalLayout hLay = new HorizontalLayout();
-        
-        layout.addComponent(hLay);
+//        HorizontalLayout hLay = new HorizontalLayout();
+//        
+//        layout.addComponent(hLay);
         
         Table table = new Table();
         List<Document> documents;
@@ -62,13 +62,12 @@ public class SearchDocument extends VerticalLayout implements View {
             ic.getContainerProperty(document, "Last Modified").setValue(document.getLastModified());
             ic.getContainerProperty(document, "Admin").setValue(document.getAdmin().getUsername());
         }
-        table.setMultiSelect(true);
+        table.setMultiSelect(false);
         table.setContainerDataSource(ic);
         table.setVisibleColumns("Name", "Version", "Document Type","Last Modified","Admin");
         table.setSelectable(true);
         table.setImmediate(true);
-        table.setHeight("400px");
-        table.setWidth("100%");
+        table.setSizeFull();
         layout.addComponent(table);
         
         this.addComponent(layout);
