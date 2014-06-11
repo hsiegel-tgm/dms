@@ -113,6 +113,7 @@ public class UploadInfoWindow extends Window implements
 
         @Override
         public void uploadSucceeded(final SucceededEvent event) {
+            this.close();
         }
 
         @Override

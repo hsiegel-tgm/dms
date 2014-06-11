@@ -132,4 +132,8 @@ public class DocumentManager {
         }
         return categories;
     }
+
+    public List<Document> getAllDocuments() throws DatabaseException {
+        return dataManager.executeQuery("getDocuments");
+    }
 }

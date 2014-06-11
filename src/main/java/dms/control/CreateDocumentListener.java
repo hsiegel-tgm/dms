@@ -5,7 +5,11 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import dms.DmsUI;
 import dms.exceptions.DatabaseException;
+import dms.model.Category;
+import dms.model.KeyWord;
+import dms.model.User;
 import dms.view.EditDocumentWindow;
+import java.util.Set;
 
 
 /**
@@ -37,27 +41,15 @@ public class CreateDocumentListener implements Button.ClickListener {
         String description = window.getDocumentDescription().getValue();
         String path = window.getPath();
         String documentType = window.getDocumentType();
-        
-//        
-//        List<DateField> dateFields = window.getDateFields();
-//        List<Date> dates = new ArrayList<Date>();
-//        Set<User> member = window.getMember();
-//        Date date;
-//        for(DateField dateField : dateFields) {
-//            date = dateField.getValue();
-//            if(date != null) dates.add(dateField.getValue());            if(window.getPrefill()) dm.createChild(name, description, documentType, window.getVersion(), path);
-
-//        }
-//        
-//        if(dates.isEmpty()) {
-//            window.displayErrorMessage("You have to specify at least one date!");
-//            return;
-//        }
+         
+        Set<User> users = window.getUsers();
+        Set<Category> categories = window.getCategories();
+        Set<KeyWord> keywords = window.getKeyWords();
         
         try {
             DocumentManager dm = ((DmsUI)UI.getCurrent()).getDmsSession().getDocumentManager();
 
-            dm.create(name, description, documentType, window.getVersion(), path,null,null,null);
+            dm.create(name, description, documentType, window.getVersion(), path, users, categories, keywords);
 
             event.getButton().removeClickShortcut();
             window.close();

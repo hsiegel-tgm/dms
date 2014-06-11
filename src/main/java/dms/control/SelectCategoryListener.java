@@ -12,7 +12,7 @@ import dms.view.SelectCategoryWindow;
 public class SelectCategoryListener implements Button.ClickListener {
     
     private SelectCategoryWindow selectCategoryWindow;
-    private EditDocumentWindow editDocumentWindow;
+    private final EditDocumentWindow editDocumentWindow;
     
     public SelectCategoryListener(EditDocumentWindow editDocumentWindow) {
         this.editDocumentWindow = editDocumentWindow;

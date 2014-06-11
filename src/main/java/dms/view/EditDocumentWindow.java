@@ -139,7 +139,7 @@ public class EditDocumentWindow extends Window {
         description.setStyleName("event-input");
         if(prefill) description.setValue(document.getDescription());
         form.addComponent(description);
-         version = prefill ? document.getVersion()+1 : 1;
+        version = prefill ? document.getVersion()+1 : 1;
         FileUploader uploader = new FileUploader(this,version);
         file = new Upload(null, uploader);
         file.setImmediate(false);
@@ -169,9 +169,7 @@ public class EditDocumentWindow extends Window {
         categoryContainer.setWidth("480px");
         if(prefill) {
             categories.addAll(document.getCategories());
-            for(Category category : categories) {
-                categoryContainer.addComponent(new CategoryComponent(category));
-            }
+            for(Category category : categories) categoryContainer.addComponent(new CategoryComponent(category));
         }
         form.addComponent(categoryContainer);
         
@@ -193,9 +191,7 @@ public class EditDocumentWindow extends Window {
         keywordContainer.setWidth("480px");
         if(prefill) {
             keywords.addAll(document.getKeyWords());
-            for(KeyWord keyword : keywords) {
-                keywordContainer.addComponent(new KeywordComponent(keyword));
-            }
+            for(KeyWord keyword : keywords) keywordContainer.addComponent(new KeywordComponent(keyword));
         }
         form.addComponent(keywordContainer);
         
@@ -217,9 +213,7 @@ public class EditDocumentWindow extends Window {
         userContainer.setWidth("480px");
         if(prefill) {
             users.addAll(document.getUsers());
-            for(User user : users) {
-                userContainer.addComponent(new UserComponent(user));
-            }
+            for(User user : users) userContainer.addComponent(new UserComponent(user));
         }
         form.addComponent(userContainer);
         
@@ -247,16 +241,6 @@ public class EditDocumentWindow extends Window {
         menu.setSpacing(true);
         menu.addStyleName("footer");
         menu.setWidth("100%"); 
-        
-        if(prefill) {
-            Button publish = new Button("Publish");
-            publish.addStyleName("wide");
-            publish.addStyleName("default");
-//            publish.addClickListener(new CreateEventListener(this));
-//            publish.addClickListener(new PublishEventListener(this));
-            menu.addComponent(publish);
-            menu.setComponentAlignment(publish, Alignment.TOP_LEFT);
-        }
         
         Button ok = new Button("Save");
         ok.addStyleName("wide");
@@ -299,6 +283,18 @@ public class EditDocumentWindow extends Window {
     public void addKeyword(KeyWord keyWord) {
         keywords.add(keyWord);
         refillKeyWords();
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public Set<KeyWord> getKeyWords() {
+        return keywords;
     }
     
     private class UserComponent extends HorizontalLayout {

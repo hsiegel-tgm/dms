@@ -18,8 +18,6 @@ import javax.persistence.OneToMany;
 /**
  * @Author Hannah Siegel
  * @version 2014-06-09
- *
- *
  */
 @NamedQueries({
     @NamedQuery(name="getDocuments", query = "FROM Document d"),

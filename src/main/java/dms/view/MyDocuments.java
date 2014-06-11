@@ -138,6 +138,7 @@ public class MyDocuments extends HorizontalLayout implements View {
                                 @Override
                                 public void windowClose(Window.CloseEvent e) {
                                     fillDocuments();
+                                    newDocument();
                                 }
                             });
                             UI.getCurrent().addWindow(w);

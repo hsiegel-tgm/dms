@@ -65,7 +65,7 @@ public class SelectCategoryWindow extends Window {
         
         IndexedContainer ic = new IndexedContainer();
         ic.addContainerProperty("Category", String.class, null);
-        for(Category category : categories) {
+        for(Category category : categories) { 
             ic.addItem(category);
             ic.getContainerProperty(category, "Category").setValue(category.getName());
         }
